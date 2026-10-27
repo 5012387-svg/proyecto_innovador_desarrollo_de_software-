@@ -38,62 +38,12 @@ function validateInput(concept, price, qty) {
   return true;
 }
 
-// --- GESTIÓN DE DATOS EN LOCALSTORAGE ---
+// --- GESTIÓN DE DATOS ---
 let items = JSON.parse(localStorage.getItem('quote_items')) || [];
 
 function saveItems() {
   localStorage.setItem('quote_items', JSON.stringify(items));
 }
-
-// --- INICIALIZACIÓN ---
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.lucide) window.lucide.createIcons();
-
-  const itemForm = document.getElementById('itemForm');
-  const closeAlertBtn = document.getElementById('closeAlertBtn');
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
-
-  // Modo Oscuro
-  themeToggleBtn?.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-  });
-
-  closeAlertBtn?.addEventListener('click', hideAlert);
-
-  // Agregar Ítem
-  itemForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    hideAlert();
-
-    const concept = document.getElementById('itemConcept').value;
-    const price = parseFloat(document.getElementById('itemPrice').value);
-    const qty = parseInt(document.getElementById('itemQty').value, 10);
-
-    try {
-      validateInput(concept, price, qty);
-
-      const newItem = {
-        id: Date.now().toString(),
-        concept: concept.trim(),
-        price: price,
-        qty: qty,
-        subtotal: price * qty
-      };
-
-      items.push(newItem);
-      saveItems();
-      itemForm.reset();
-      document.getElementById('itemQty').value = 1;
-
-      showAlert('Ítem añadido correctamente.', 'success');
-      renderUI();
-    } catch (error) {
-      showAlert(error.message, 'error');
-    }
-  });
-
-  renderUI();
-});
 
 // --- RENDERIZADO EN PANTALLA ---
 function renderUI() {
@@ -101,13 +51,15 @@ function renderUI() {
   const emptyState = document.getElementById('emptyState');
   const totalAmountEl = document.getElementById('totalAmount');
 
+  if (!itemsList) return;
+
   itemsList.innerHTML = '';
   let total = 0;
 
   if (items.length === 0) {
-    emptyState.classList.remove('hidden');
+    if (emptyState) emptyState.classList.remove('hidden');
   } else {
-    emptyState.classList.add('hidden');
+    if (emptyState) emptyState.classList.add('hidden');
 
     items.forEach(item => {
       total += item.subtotal;
@@ -140,6 +92,59 @@ function renderUI() {
     });
   }
 
-  totalAmountEl.textContent = `$${total.toFixed(2)}`;
+  if (totalAmountEl) totalAmountEl.textContent = `$${total.toFixed(2)}`;
   if (window.lucide) window.lucide.createIcons();
 }
+
+// --- INICIALIZACIÓN ---
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) window.lucide.createIcons();
+
+  const itemForm = document.getElementById('itemForm');
+  const closeAlertBtn = document.getElementById('closeAlertBtn');
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+  themeToggleBtn?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+  });
+
+  closeAlertBtn?.addEventListener('click', hideAlert);
+
+  itemForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    hideAlert();
+
+    const conceptInput = document.getElementById('itemConcept');
+    const priceInput = document.getElementById('itemPrice');
+    const qtyInput = document.getElementById('itemQty');
+
+    const concept = conceptInput ? conceptInput.value : '';
+    const price = priceInput ? parseFloat(priceInput.value) : 0;
+    const qty = qtyInput ? parseInt(qtyInput.value, 10) : 0;
+
+    try {
+      validateInput(concept, price, qty);
+
+      const newItem = {
+        id: Date.now().toString(),
+        concept: concept.trim(),
+        price: price,
+        qty: qty,
+        subtotal: price * qty
+      };
+
+      items.push(newItem);
+      saveItems();
+      
+      itemForm.reset();
+      if (qtyInput) qtyInput.value = 1;
+
+      showAlert('Ítem añadido correctamente.', 'success');
+      renderUI();
+    } catch (error) {
+      showAlert(error.message, 'error');
+    }
+  });
+
+  renderUI();
+});
