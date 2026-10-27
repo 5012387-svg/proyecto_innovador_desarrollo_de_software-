@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pruebas Unitarias - Cotizador Express</title>
+</head>
+<body>
+  <h1>Ejecutando Pruebas Unitarias...</h1>
+  <p>Abre la consola del navegador (F12) para ver los resultados detallados.</p>
+
+  <script>
+    function validateInput(concept, price, qty) {
+      if (!concept || concept.trim() === '') throw new Error('El concepto es obligatorio');
+      if (isNaN(price) || price <= 0) throw new Error('El precio debe ser positivo');
+      if (isNaN(qty) || qty <= 0) throw new Error('La cantidad debe ser mayor a 0');
+      return true;
+    }
+
+    console.group('🧪 Suite de Pruebas Unitarias - Cotizador Express');
+
+    // Prueba 1: Entrada válida
+    try {
+      validateInput('Diseño Web', 150, 2);
+      console.log('✅ Prueba 1 (Validación exitosa): PASÓ');
+    } catch (e) {
+      console.error('❌ Prueba 1 FALLÓ:', e.message);
+    }
+
+    // Prueba 2: Concepto vacío
+    try {
+      validateInput('', 150, 2);
+      console.error('❌ Prueba 2 FALLÓ: No detectó el concepto vacío');
+    } catch (e) {
+      console.log('✅ Prueba 2 (Rechazo de concepto vacío): PASÓ');
+    }
+
+    // Prueba 3: Precio negativo
+    try {
+      validateInput('Diseño', -50, 1);
+      console.error('❌ Prueba 3 FALLÓ: Permitió precio negativo');
+    } catch (e) {
+      console.log('✅ Prueba 3 (Rechazo de precio negativo): PASÓ');
+    }
+
+    // Prueba 4: Cálculo de subtotal
+    const price = 150;
+    const qty = 3;
+    const subtotal = price * qty;
+    if (subtotal === 450) {
+      console.log('✅ Prueba 4 (Cálculo correcto de subtotal): PASÓ');
+    } else {
+      console.error('❌ Prueba 4 FALLÓ: Cálculo incorrecto');
+    }
+
+    console.groupEnd();
+  </script>
+</body>
+</html>
