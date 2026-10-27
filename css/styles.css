@@ -1,0 +1,21 @@
+/* Animación suave para la entrada de tarjetas de tareas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Transición suave para tachado de tareas completadas */
+.task-title-completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
