@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       itemForm.reset();
       if (qtyInput) qtyInput.value = 1;
 
-      showAlert('Ítem añadido correctamente.', 'success');
+      showAlert('Item agregado correctamente.', 'success');
       renderUI();
     } catch (error) {
       showAlert(error.message, 'error');
