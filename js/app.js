@@ -38,7 +38,7 @@ function validateInput(concept, price, qty) {
   return true;
 }
 
-// --- GESTIÓN DE DATOS ---
+// --- GESTIÓN DE DATOS EN LOCALSTORAGE ---
 let items = JSON.parse(localStorage.getItem('quote_items')) || [];
 
 function saveItems() {
@@ -96,20 +96,22 @@ function renderUI() {
   if (window.lucide) window.lucide.createIcons();
 }
 
-// --- INICIALIZACIÓN ---
-window.addEventListener('DOMContentLoaded', () => {
+// --- INICIALIZACIÓN Y EVENTOS ---
+document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) window.lucide.createIcons();
 
   const itemForm = document.getElementById('itemForm');
   const closeAlertBtn = document.getElementById('closeAlertBtn');
   const themeToggleBtn = document.getElementById('themeToggleBtn');
 
+  // Alternar modo oscuro
   themeToggleBtn?.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark');
   });
 
   closeAlertBtn?.addEventListener('click', hideAlert);
 
+  // Formulario de agregar ítem
   itemForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     hideAlert();
