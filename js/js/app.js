@@ -1,6 +1,47 @@
-import { showAlert, hideAlert, validateTaskInput } from './utils.js';
+// --- FUNCIONES DE UTILIDAD (Manejo de alertas y validaciones) ---
+function showAlert(message, type = 'error') {
+  const banner = document.getElementById('alertBanner');
+  const msgEl = document.getElementById('alertMessage');
+  const iconEl = document.getElementById('alertIcon');
 
-// --- MÓDULO DE DATOS (Manejador del Estado y LocalStorage) ---
+  if (!banner || !msgEl) return;
+
+  msgEl.textContent = message;
+  banner.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'border-red-300', 'bg-green-100', 'text-green-800', 'border-green-300', 'bg-blue-100', 'text-blue-800', 'border-blue-300');
+
+  if (type === 'error') {
+    banner.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
+    if (iconEl) iconEl.setAttribute('data-lucide', 'alert-circle');
+  } else if (type === 'success') {
+    banner.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
+    if (iconEl) iconEl.setAttribute('data-lucide', 'check-circle');
+  } else {
+    banner.classList.add('bg-blue-100', 'text-blue-800', 'border', 'border-blue-300');
+    if (iconEl) iconEl.setAttribute('data-lucide', 'info');
+  }
+
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function hideAlert() {
+  const banner = document.getElementById('alertBanner');
+  if (banner) banner.classList.add('hidden');
+}
+
+function validateTaskInput(title, dueDate) {
+  if (!title || title.trim() === '') {
+    throw new Error('El título de la tarea es obligatorio.');
+  }
+  if (title.trim().length < 3) {
+    throw new Error('El título debe tener al menos 3 caracteres.');
+  }
+  if (!dueDate) {
+    throw new Error('Por favor selecciona una fecha límite.');
+  }
+  return true;
+}
+
+// --- CLASE GESTORA DE DATOS ---
 class TaskManager {
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem('tasks_data')) || [];
@@ -63,11 +104,10 @@ class TaskManager {
   }
 }
 
-// --- INICIALIZACIÓN Y EVENTOS DE INTERFAZ ---
+// --- EVENTOS E INICIALIZACIÓN DE LA APLICACIÓN ---
 const taskManager = new TaskManager();
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Inicialización de iconos de Lucide
   if (window.lucide) window.lucide.createIcons();
 
   const taskForm = document.getElementById('taskForm');
@@ -82,10 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.toggle('dark');
   });
 
-  // Evento de Cierre de Alertas
+  // Cerrar Alerta
   closeAlertBtn?.addEventListener('click', hideAlert);
 
-  // Formulario: Guardar Tarea con Manejo de Errores
+  // Guardar Tarea
   taskForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     hideAlert();
@@ -97,31 +137,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const desc = document.getElementById('taskDesc').value;
 
     try {
-      // Validar datos de entrada
       validateTaskInput(title, dueDate);
-
-      // Agregar tarea
       taskManager.addTask({ title, category, priority, dueDate, desc });
       taskForm.reset();
       
       showAlert('¡Tarea agregada con éxito!', 'success');
       renderUI();
     } catch (error) {
-      // Manejo claro de errores en interfaz
       showAlert(error.message, 'error');
     }
   });
 
-  // Filtros y Búsqueda en Tiempo Real
+  // Filtros
   searchInput?.addEventListener('input', renderUI);
   filterStatus?.addEventListener('change', renderUI);
   filterPriority?.addEventListener('change', renderUI);
 
-  // Render inicial
   renderUI();
 });
 
-// --- RENDERIZADO DE INTERFAZ (UI/UX) ---
+// --- RENDERIZADO EN PANTALLA ---
 function renderUI() {
   const taskList = document.getElementById('taskList');
   const emptyState = document.getElementById('emptyState');
@@ -133,12 +168,10 @@ function renderUI() {
   const tasksToDisplay = taskManager.getFilteredTasks(searchQuery, statusQuery, priorityQuery);
   const stats = taskManager.getStats();
 
-  // Actualizar Contadores/Estadísticas
   document.getElementById('totalTasksCount').textContent = stats.total;
   document.getElementById('pendingTasksCount').textContent = stats.pending;
   document.getElementById('completedTasksCount').textContent = stats.completed;
 
-  // Renderizar Lista
   if (tasksToDisplay.length === 0) {
     emptyState.classList.remove('hidden');
     taskList.innerHTML = '';
@@ -151,7 +184,6 @@ function renderUI() {
       const card = document.createElement('div');
       card.className = `task-card p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${task.completed ? 'opacity-75' : ''}`;
       
-      // Colores según prioridad
       const priorityColors = {
         Alta: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
         Media: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
@@ -179,7 +211,6 @@ function renderUI() {
       taskList.appendChild(card);
     });
 
-    // Asignar Eventos a los botones creados dinámicamente
     document.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('change', (e) => {
         taskManager.toggleTaskStatus(e.target.dataset.id);
