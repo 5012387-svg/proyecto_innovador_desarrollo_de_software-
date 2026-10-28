@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  
   // 1. Navegación con desplazamiento suave para TODOS los enlaces del menú y botones
   const allNavLinks = document.querySelectorAll('a[href^="#"]');
   allNavLinks.forEach(anchor => {
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
           block: 'start'
         });
         
-        // Cerrar el menú móvil si está abierto
+        // Cerrar menú móvil si está abierto
         const navLinks = document.getElementById('navLinks');
         if (navLinks && navLinks.classList.contains('active')) {
           navLinks.classList.remove('active');
@@ -28,14 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('section[id]');
 
   window.addEventListener('scroll', () => {
-    // Sombra en navbar al bajar
     if (window.scrollY > 30) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
 
-    // Resaltar sección activa en el menú
     let currentScroll = window.pageYOffset + 150;
     sections.forEach(section => {
       const sectionHeight = section.offsetHeight;
@@ -62,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Animación de contadores de estadísticas
+  // 4. Animación de contadores numéricos
   const statNumbers = document.querySelectorAll('.stat-num');
   let animated = false;
 
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Iniciar animación al llegar a la sección
   const checkStatsVisibility = () => {
     const heroStats = document.querySelector('.hero-stats');
     if (heroStats && !animated) {
@@ -98,9 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('scroll', checkStatsVisibility);
-  checkStatsVisibility(); // Ejecución inicial
+  checkStatsVisibility();
 
-  // 5. Formulario de contacto funcional con validación y respuesta
+  // 5. Formulario de contacto funcional
   const contactForm = document.getElementById('contactForm');
   const formFeedback = document.getElementById('formFeedback');
 
@@ -114,13 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!name || !email || !message) {
         formFeedback.style.color = '#ef4444';
-        formFeedback.innerText = 'Por favor, completa todos los campos del formulario.';
+        formFeedback.innerText = 'Por favor, llena todos los campos.';
         return;
       }
 
-      // Mensaje de éxito interactivo
       formFeedback.style.color = '#10b981';
-      formFeedback.innerText = `¡Mensaje enviado con éxito, ${name}! Te responderemos pronto a ${email}.`;
+      formFeedback.innerText = `¡Mensaje enviado con éxito, ${name}! Nos pondremos en contacto pronto.`;
 
       contactForm.reset();
     });

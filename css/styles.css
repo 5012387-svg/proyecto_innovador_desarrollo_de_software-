@@ -34,7 +34,7 @@ body {
   padding: 0 1.5rem;
 }
 
-/* --- ESTILOS DE NAVEGACIÓN --- */
+/* --- ESTILOS DE NAVEGACION --- */
 .navbar {
   position: fixed;
   top: 0;
@@ -168,7 +168,7 @@ body {
   justify-content: center;
 }
 
-/* --- SECCIÓN HERO --- */
+/* --- SECCION HERO --- */
 .hero-section {
   position: relative;
   padding: 10rem 0 6rem 0;
@@ -369,7 +369,7 @@ body {
 }
 
 /* --- SERVICIOS --- */
-.services-section {
+.services-section, .about-section {
   padding: 6rem 0;
 }
 
@@ -423,7 +423,7 @@ body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 2rem;
 }
 
@@ -520,6 +520,7 @@ body {
 
 .form-group {
   margin-bottom: 1.25rem;
+  text-align: left;
 }
 
 .form-group label {
@@ -529,26 +530,31 @@ body {
   color: var(--text-muted);
 }
 
-.form-group input, .form-group textarea {
+.form-group input, 
+.form-group textarea {
   width: 100%;
   padding: 0.85rem 1rem;
-  background: #090d16;
-  border: 1px solid var(--border-color);
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  color: #fff;
+  color: #ffffff;
   outline: none;
   font-family: inherit;
-  transition: border-color 0.3s ease;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group input:focus, .form-group textarea:focus {
+.form-group input:focus, 
+.form-group textarea:focus {
   border-color: var(--accent-blue);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
 }
 
 .form-feedback {
   margin-top: 1rem;
   font-size: 0.9rem;
   text-align: center;
+  font-weight: 600;
 }
 
 /* --- FOOTER --- */
