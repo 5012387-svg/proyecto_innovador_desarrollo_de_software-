@@ -11,12 +11,670 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Hoja de Estilos CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* --- VARIABLES GLOBALES --- */
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-card-hover: #1f2937;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      --font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* --- NAVEGACIÓN --- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(9, 13, 22, 0.85);
+      padding: 0.85rem 0;
+      border-bottom-color: var(--border-color);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon { color: var(--accent-blue); }
+    .logo-dot { color: var(--accent-purple); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active { color: #fff; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* --- BOTONES --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-glow {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.05); }
+
+    .btn-lg {
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+    }
+
+    .btn-block {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* --- HERO --- */
+    .hero-section {
+      position: relative;
+      padding: 10rem 0 6rem 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-bg-blobs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+    }
+
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: var(--accent-blue);
+    }
+
+    .blob-2 {
+      top: 20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: var(--accent-purple);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: var(--accent-blue);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text h1 {
+      font-size: 3.8rem;
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text h1 span {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.1rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .stat-label {
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border-color);
+    }
+
+    .code-card {
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .code-header {
+      background: #161b22;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .dots { display: flex; gap: 0.4rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .code-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .code-body {
+      padding: 1.5rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+    }
+
+    .code-body .k { color: #ff7b72; }
+    .code-body .v { color: #79c0ff; }
+    .code-body .f { color: #d2a8ff; }
+    .code-body .p { color: #ffa657; }
+    .code-body .s { color: #a5d6ff; }
+    .code-body .c { color: #8b949e; }
+
+    /* --- SECCIONES --- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .sub-title {
+      color: var(--accent-blue);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-top: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0.5rem auto 0 auto;
+    }
+
+    /* --- SERVICIOS --- */
+    .services-section { padding: 6rem 0; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-8px);
+      border-color: var(--accent-blue);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-btn {
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* --- PROYECTOS --- */
+    .projects-section { padding: 6rem 0; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-purple);
+      box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2);
+    }
+
+    .project-img {
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .project-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(9, 13, 22, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: #fff;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-overlay { opacity: 1; }
+
+    .bg-p1 { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+    .bg-p2 { background: linear-gradient(135deg, #581c87, #8b5cf6); }
+
+    .project-info { padding: 1.5rem; }
+
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-info h3 { margin-bottom: 0.5rem; }
+    .project-info p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* --- NOSOTROS --- */
+    .about-section { padding: 6rem 0; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .about-card {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .about-icon {
+      font-size: 2.5rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+    }
+
+    /* --- CONTACTO --- */
+    .contact-section { padding: 6rem 0; }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-text h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .contact-text p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .c-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-main);
+    }
+
+    .c-item i { color: var(--accent-blue); }
+
+    .contact-card {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .form-group input, 
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: #0d1117;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #ffffff;
+      outline: none;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .form-group input:focus, 
+    .form-group textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    }
+
+    .form-feedback {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* --- MODAL INTERACTIVO --- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      font-size: 2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .close-modal:hover { color: #fff; }
+
+    /* --- FOOTER --- */
+    .footer {
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .social-links { display: flex; gap: 1.2rem; }
+    .social-links a { color: var(--text-muted); font-size: 1.1rem; }
+    .social-links a:hover { color: #fff; }
+
+    /* --- RESPONSIVO --- */
+    @media (max-width: 992px) {
+      .hero-grid, .contact-container { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 2.8rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; width: 100%;
+        background: var(--bg-dark);
+        flex-direction: column;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .nav-links.active { display: flex; }
+      .mobile-toggle { display: block; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navegación Principal -->
+  <!-- Navegación -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#inicio" class="logo">
@@ -41,7 +699,7 @@
     </div>
   </header>
 
-  <!-- Sección Hero -->
+  <!-- Hero -->
   <section id="inicio" class="hero-section">
     <div class="hero-bg-blobs">
       <div class="blob blob-1"></div>
@@ -51,7 +709,7 @@
       <div class="hero-text">
         <div class="badge"><i class="fa-solid fa-bolt"></i> Innovación Digital 2026</div>
         <h1>Construimos el <span>Futuro Software</span> de tu Empresa</h1>
-        <p>Transformamos visiones complejas en experiencias digitales fluidas, escalables y orientadas a resultados. Desarrollo a la medida de la máxima exigencia.</p>
+        <p>Transformamos visiones complejas en experiencias digitales fluidas, escalables y orientadas a resultados.</p>
         <div class="hero-buttons">
           <a href="#contacto" class="btn btn-primary btn-lg">Empezar Ahora <i class="fa-solid fa-arrow-right"></i></a>
           <a href="#proyectos" class="btn btn-outline btn-lg"><i class="fa-solid fa-circle-play"></i> Ver Trabajo</a>
@@ -99,28 +757,28 @@
     </div>
   </section>
 
-  <!-- Sección Servicios Interactivas -->
+  <!-- Servicios -->
   <section id="servicios" class="services-section">
     <div class="container">
       <div class="section-header">
         <span class="sub-title">Nuestras Capacidades</span>
         <h2>Servicios Diseñados para Escalar</h2>
-        <p>Haz clic en cualquier tarjeta para ver los detalles técnicos completos del servicio.</p>
+        <p>Haz clic en cualquier tarjeta para ver los detalles técnicos completos.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card interactive-card" data-service="web">
+        <div class="service-card interactive-card" onclick="openModal('web')">
           <div class="card-icon"><i class="fa-solid fa-code"></i></div>
           <h3>Desarrollo Web & WebApps</h3>
           <p>Sitios y aplicaciones web ultra rápidas, responsivas y optimizadas con SEO técnico avanzado y arquitecturas modernas.</p>
           <span class="card-btn">Ver Detalles <i class="fa-solid fa-chevron-right"></i></span>
         </div>
-        <div class="service-card interactive-card" data-service="mobile">
+        <div class="service-card interactive-card" onclick="openModal('mobile')">
           <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
           <h3>Aplicaciones Móviles</h3>
           <p>Desarrollo nativo y multiplataforma para iOS y Android con experiencias de usuario totalmente fluidas e intuitivas.</p>
           <span class="card-btn">Ver Detalles <i class="fa-solid fa-chevron-right"></i></span>
         </div>
-        <div class="service-card interactive-card" data-service="ai">
+        <div class="service-card interactive-card" onclick="openModal('ai')">
           <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
           <h3>Integración de IA & Cloud</h3>
           <p>Modelos de Inteligencia Artificial personalizados y migraciones a la nube resilientes en entornos AWS/GCP/Azure.</p>
@@ -130,46 +788,46 @@
     </div>
   </section>
 
-  <!-- Sección Proyectos Interactivas -->
+  <!-- Proyectos -->
   <section id="proyectos" class="projects-section">
     <div class="container">
       <div class="section-header">
         <span class="sub-title">Casos de Éxito</span>
         <h2>Proyectos Destacados</h2>
-        <p>Haz clic en una tarjeta para ver la demostración interactiva.</p>
+        <p>Haz clic en una tarjeta para ver el caso de estudio.</p>
       </div>
       <div class="projects-grid">
-        <article class="project-card interactive-project" data-project="paynexus">
+        <article class="project-card interactive-project" onclick="openModal('paynexus')">
           <div class="project-img bg-p1">
             <div class="project-overlay"><i class="fa-solid fa-up-right-from-square"></i> Abrir Caso de Estudio</div>
           </div>
           <div class="project-info">
             <span class="tag">Fintech</span>
             <h3>PayNexus Platform</h3>
-            <p>Plataforma bancaria de procesamiento de pagos transfronterizos en tiempo real con cifrado de grado militar.</p>
+            <p>Plataforma bancaria de procesamiento de pagos transfronterizos en tiempo real.</p>
           </div>
         </article>
-        <article class="project-card interactive-project" data-project="aura">
+        <article class="project-card interactive-project" onclick="openModal('aura')">
           <div class="project-img bg-p2">
             <div class="project-overlay"><i class="fa-solid fa-up-right-from-square"></i> Abrir Caso de Estudio</div>
           </div>
           <div class="project-info">
             <span class="tag">E-Commerce</span>
             <h3>Aura Global Store</h3>
-            <p>Ecosystem de comercio electrónico con recomendaciones personalizadas impulsadas por algoritmos predictivos.</p>
+            <p>Ecosystem de comercio electrónico con recomendaciones impulsadas por IA.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Sección Nosotros -->
+  <!-- Nosotros -->
   <section id="nosotros" class="about-section">
     <div class="container">
       <div class="section-header">
         <span class="sub-title">Sobre Nosotros</span>
         <h2>Ingeniería Digital de Clase Mundial</h2>
-        <p>Somos un equipo multidisciplinario de desarrolladores, diseñadores UI/UX y arquitectos de nube apasionados por crear soluciones eficientes y escalables.</p>
+        <p>Somos un equipo multidisciplinario de desarrolladores, diseñadores UI/UX y arquitectos de nube.</p>
       </div>
       <div class="about-grid">
         <div class="about-card">
@@ -180,13 +838,13 @@
         <div class="about-card">
           <i class="fa-solid fa-rocket about-icon"></i>
           <h3>Soporte 24/7</h3>
-          <p>Monitoreo continuo en producción para garantizar la máxima disponibilidad de tus sistemas.</p>
+          <p>Monitoreo continuo en producción para garantizar la máxima disponibilidad.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sección Contacto -->
+  <!-- Contacto -->
   <section id="contacto" class="contact-section">
     <div class="container contact-container">
       <div class="contact-text">
@@ -218,15 +876,15 @@
     </div>
   </section>
 
-  <!-- Modal Detalle Interactivo -->
+  <!-- Modal Emergente -->
   <div class="modal" id="infoModal">
     <div class="modal-content">
-      <span class="close-modal" id="closeModal">&times;</span>
+      <span class="close-modal" onclick="closeModalWindow()">&times;</span>
       <div id="modalBody"></div>
     </div>
   </div>
 
-  <!-- Pie de Página -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container footer-content">
       <p>&copy; 2026 Nexus Tech Ltd. Todos los derechos reservados.</p>
@@ -238,7 +896,104 @@
     </div>
   </footer>
 
-  <!-- Script JS -->
-  <script src="js/app.js"></script>
+  <!-- SCRIPT INTERACTIVO INTEGRADO -->
+  <script>
+    const modalData = {
+      web: {
+        title: '🚀 Desarrollo Web & WebApps',
+        content: '<p style="margin-top:1rem; color:#9ca3af;">Construimos aplicaciones web progresivas (PWA) e interfaces dinámicas con Next.js y React. Optimización de velocidad <strong style="color:#fff;">Lighthouse 100/100</strong>.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Renderizado en servidor (SSR)</li><li>Arquitectura JAMstack escalable</li><li>Seguridad con estándares OWASP</li></ul>'
+      },
+      mobile: {
+        title: '📱 Aplicaciones Móviles',
+        content: '<p style="margin-top:1rem; color:#9ca3af;">Desarrollo multiplataforma nativo utilizando Flutter y React Native con soporte offline y animaciones fluidas a 60fps.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Publicación en App Store & Google Play</li><li>Notificaciones push en tiempo real</li><li>Biometría y autenticación segura</li></ul>'
+      },
+      ai: {
+        title: '🧠 Integración de IA & Cloud',
+        content: '<p style="margin-top:1rem; color:#9ca3af;">Integración de modelos de lenguaje (LLM), automatización de procesos e infraestructura sin servidor en AWS y Google Cloud.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Pipelines de Inteligencia Artificial</li><li>Contenedores Docker y Kubernetes</li><li>Cero tiempo de inactividad</li></ul>'
+      },
+      paynexus: {
+        title: '💳 PayNexus Platform',
+        content: '<p style="margin-top:1rem; color:#9ca3af;">Plataforma de procesamiento de pagos transfronterizos capaz de gestionar más de 50,000 transacciones por segundo con cifrado AES-256.</p><a href="#contacto" onclick="closeModalWindow()" class="btn btn-primary" style="margin-top:1.5rem;">Solicitar una Demo</a>'
+      },
+      aura: {
+        title: '🛍️ Aura Global Store',
+        content: '<p style="margin-top:1rem; color:#9ca3af;">E-commerce con arquitectura Headless e IA de recomendación personalizada que incrementó las ventas un +42%.</p><a href="#contacto" onclick="closeModalWindow()" class="btn btn-primary" style="margin-top:1.5rem;">Ver Caso Completo</a>'
+      }
+    };
+
+    function openModal(key) {
+      const data = modalData[key];
+      if (data) {
+        document.getElementById('modalBody').innerHTML = `<h2 style="color:#fff; font-size:1.8rem;">${data.title}</h2>${data.content}`;
+        document.getElementById('infoModal').classList.add('active');
+      }
+    }
+
+    function closeModalWindow() {
+      document.getElementById('infoModal').classList.remove('active');
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('infoModal');
+      if (event.target === modal) {
+        closeModalWindow();
+      }
+    };
+
+    // Navegación con scroll suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Menú Hamburguesa
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
+
+    // Formulario de Contacto
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const feedback = document.getElementById('formFeedback');
+      feedback.style.color = '#10b981';
+      feedback.innerText = `¡Gracias, ${name}! Hemos recibido tu mensaje con éxito.`;
+      this.reset();
+    });
+
+    // Animación de Contadores
+    let animated = false;
+    window.addEventListener('scroll', () => {
+      const stats = document.querySelector('.hero-stats');
+      if (stats && !animated) {
+        const pos = stats.getBoundingClientRect().top;
+        if (pos < window.innerHeight - 50) {
+          document.querySelectorAll('.stat-num').forEach(stat => {
+            const target = +stat.getAttribute('data-target');
+            let count = 0;
+            const speed = target / 40;
+            const update = () => {
+              count += speed;
+              if (count < target) {
+                stat.innerText = Math.ceil(count);
+                setTimeout(update, 25);
+              } else {
+                stat.innerText = target;
+              }
+            };
+            update();
+          });
+          animated = true;
+        }
+      }
+    });
+  </script>
 </body>
 </html>
