@@ -1,266 +1,91 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cotizador Express</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presupuesto Express — Calculadora Profesional de Cotizaciones</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-200">
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-  <!-- Header -->
-  <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
-    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+  <!-- Header / Barra Superior -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="bg-emerald-600 text-white p-2 rounded-lg">
+        <div class="p-2 bg-brand-500/10 text-brand-500 rounded-lg border border-brand-500/20">
           <i data-lucide="calculator" class="w-6 h-6"></i>
         </div>
         <div>
-          <h1 class="text-xl font-bold text-gray-900 dark:text-white leading-tight">Presupuesto Express</h1>
-          <p class="text-xs text-gray-500 dark:text-gray-400">Calculadora de Cotizaciones</p>
+          <h1 class="font-bold text-lg leading-none text-slate-100">Presupuesto Express</h1>
+          <p class="text-xs text-slate-400 mt-0.5">Calculadora de Cotizaciones Profesional</p>
         </div>
       </div>
-      <button id="themeToggleBtn" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+      
+      <button id="themeToggleBtn" type="button" class="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition" title="Cambiar Tema">
         <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
       </button>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-4 py-8">
-
-    <!-- Banner de Alertas -->
-    <div id="alertBanner" class="hidden mb-6 p-4 rounded-lg flex items-center justify-between shadow-sm transition-all">
+  <!-- Banner de Alertas -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+    <div id="alertBanner" class="hidden p-4 rounded-xl border flex items-center justify-between transition-all duration-200">
       <div class="flex items-center gap-3">
-        <i id="alertIcon" data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0"></i>
+        <i id="alertIcon" class="w-5 h-5 flex-shrink-0"></i>
         <span id="alertMessage" class="text-sm font-medium"></span>
       </div>
-      <button id="closeAlertBtn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+      <button id="closeAlertBtn" class="p-1 hover:opacity-75 rounded-lg transition">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
     </div>
+  </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      
-      <!-- Formulario para Agregar Ítem -->
-      <section class="lg:col-span-1">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm sticky top-24">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <i data-lucide="plus-circle" class="w-5 h-5 text-emerald-600 dark:text-emerald-400"></i>
-            Agregar Ítem
-          </h2>
+  <!-- Contenido Principal -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Formulario (4 columnas en escritorio) -->
+    <section class="lg:col-span-4 bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+      <h2 class="text-lg font-semibold text-slate-100 flex items-center gap-2 mb-6">
+        <i data-lucide="plus-circle" class="w-5 h-5 text-brand-500"></i>
+        Agregar Ítem
+      </h2>
 
-          <form id="itemForm" class="space-y-4" novalidate>
-            <div>
-              <label for="itemConcept" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">Concepto / Servicio *</label>
-              <input type="text" id="itemConcept" placeholder="Ej: Diseño Web..." class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-            </div>
-
-            <div>
-              <label for="itemPrice" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">Precio Unitario ($) *</label>
-              <input type="number" step="0.01" id="itemPrice" placeholder="Ej: 150.00" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-            </div>
-
-            <div>
-              <label for="itemQty" class="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">Cantidad *</label>
-              <input type="number" id="itemQty" value="1" min="1" class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
-            </div>
-
-            <button type="submit" class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg shadow-sm text-sm flex items-center justify-center gap-2 transition">
-              <i data-lucide="plus" class="w-4 h-4"></i>
-              Añadir a Cotización
-            </button>
-          </form>
+      <form id="itemForm" class="space-y-5">
+        <div>
+          <label for="itemConcept" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+            Concepto / Servicio <span class="text-brand-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="itemConcept" 
+            placeholder="Ej: Desarrollo de Landing Page" 
+            class="w-full bg-slate-900/80 border border-slate-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition"
+            required
+          >
         </div>
-      </section>
 
-      <!-- Tabla y Resumen -->
-      <section class="lg:col-span-2 space-y-4">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Detalle del Presupuesto</h2>
-          
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-gray-600 dark:text-gray-300">
-              <thead class="bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-200 uppercase text-[11px] font-semibold">
-                <tr>
-                  <th class="py-3 px-4">Concepto</th>
-                  <th class="py-3 px-4 text-center">Cant.</th>
-                  <th class="py-3 px-4 text-right">Precio</th>
-                  <th class="py-3 px-4 text-right">Subtotal</th>
-                  <th class="py-3 px-4 text-center">Acción</th>
-                </tr>
-              </thead>
-              <tbody id="itemsList" class="divide-y divide-gray-200 dark:divide-gray-700">
-              </tbody>
-            </table>
-
-            <div id="emptyState" class="py-8 text-center">
-              <i data-lucide="receipt" class="w-12 h-12 mx-auto text-gray-400 mb-2"></i>
-              <p class="text-sm text-gray-500 dark:text-gray-400">No hay ítems en la cotización</p>
-            </div>
-          </div>
-
-          <!-- Total final -->
-          <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
-            <span class="text-base font-bold text-gray-900 dark:text-white">Total Estimado:</span>
-            <span id="totalAmount" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0.00</span>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <script>
-    function showAlert(message, type = 'error') {
-      const banner = document.getElementById('alertBanner');
-      const msgEl = document.getElementById('alertMessage');
-      const iconEl = document.getElementById('alertIcon');
-
-      if (!banner || !msgEl) return;
-
-      msgEl.textContent = message;
-      banner.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'border-red-300', 'bg-green-100', 'text-green-800', 'border-green-300');
-
-      if (type === 'error') {
-        banner.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
-        if (iconEl) iconEl.setAttribute('data-lucide', 'alert-circle');
-      } else {
-        banner.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
-        if (iconEl) iconEl.setAttribute('data-lucide', 'check-circle');
-      }
-
-      if (window.lucide) window.lucide.createIcons();
-    }
-
-    function hideAlert() {
-      const banner = document.getElementById('alertBanner');
-      if (banner) banner.classList.add('hidden');
-    }
-
-    function validateInput(concept, price, qty) {
-      if (!concept || concept.trim() === '') {
-        throw new Error('Ingresa un concepto o descripción para el ítem.');
-      }
-      if (isNaN(price) || price <= 0) {
-        throw new Error('El precio unitario debe ser un número mayor a 0.');
-      }
-      if (isNaN(qty) || qty <= 0) {
-        throw new Error('La cantidad debe ser al menos 1.');
-      }
-      return true;
-    }
-
-    let items = JSON.parse(localStorage.getItem('quote_items')) || [];
-
-    function saveItems() {
-      localStorage.setItem('quote_items', JSON.stringify(items));
-    }
-
-    function renderUI() {
-      const itemsList = document.getElementById('itemsList');
-      const emptyState = document.getElementById('emptyState');
-      const totalAmountEl = document.getElementById('totalAmount');
-
-      if (!itemsList) return;
-
-      itemsList.innerHTML = '';
-      let total = 0;
-
-      if (items.length === 0) {
-        if (emptyState) emptyState.classList.remove('hidden');
-      } else {
-        if (emptyState) emptyState.classList.add('hidden');
-
-        items.forEach(item => {
-          total += item.subtotal;
-          const row = document.createElement('tr');
-          row.className = 'item-row border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50/50 dark:hover:bg-gray-700/30';
-
-          row.innerHTML = `
-            <td class="py-3 px-4 font-medium text-gray-900 dark:text-white">${item.concept}</td>
-            <td class="py-3 px-4 text-center">${item.qty}</td>
-            <td class="py-3 px-4 text-right">$${item.price.toFixed(2)}</td>
-            <td class="py-3 px-4 text-right font-semibold text-gray-900 dark:text-white">$${item.subtotal.toFixed(2)}</td>
-            <td class="py-3 px-4 text-center">
-              <button class="delete-btn text-gray-400 hover:text-red-600 transition p-1" data-id="${item.id}" title="Eliminar">
-                <i data-lucide="trash-2" class="w-4 h-4 pointer-events-none"></i>
-              </button>
-            </td>
-          `;
-
-          itemsList.appendChild(row);
-        });
-
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const id = e.target.closest('.delete-btn').dataset.id;
-            items = items.filter(i => i.id !== id);
-            saveItems();
-            showAlert('Ítem eliminado.', 'success');
-            renderUI();
-          });
-        });
-      }
-
-      if (totalAmountEl) totalAmountEl.textContent = `$${total.toFixed(2)}`;
-      if (window.lucide) window.lucide.createIcons();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.lucide) window.lucide.createIcons();
-
-      const itemForm = document.getElementById('itemForm');
-      const closeAlertBtn = document.getElementById('closeAlertBtn');
-      const themeToggleBtn = document.getElementById('themeToggleBtn');
-
-      themeToggleBtn?.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-      });
-
-      closeAlertBtn?.addEventListener('click', hideAlert);
-
-      itemForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        hideAlert();
-
-        const conceptInput = document.getElementById('itemConcept');
-        const priceInput = document.getElementById('itemPrice');
-        const qtyInput = document.getElementById('itemQty');
-
-        const concept = conceptInput ? conceptInput.value : '';
-        const price = priceInput ? parseFloat(priceInput.value) : 0;
-        const qty = qtyInput ? parseInt(qtyInput.value, 10) : 0;
-
-        try {
-          validateInput(concept, price, qty);
-
-          const newItem = {
-            id: Date.now().toString(),
-            concept: concept.trim(),
-            price: price,
-            qty: qty,
-            subtotal: price * qty
-          };
-
-          items.push(newItem);
-          saveItems();
-          
-          itemForm.reset();
-          if (qtyInput) qtyInput.value = 1;
-
-          showAlert('Ítem añadido correctamente.', 'success');
-          renderUI();
-        } catch (error) {
-          showAlert(error.message, 'error');
-        }
-      });
-
-      renderUI();
-    });
-  </script>
-</body>
-</html>
+        <div>
+          <label for="itemPrice" class="block text-xs font-semibold
