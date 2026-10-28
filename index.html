@@ -1,43 +1,88 @@
-<div class="form-group">
-    <label for="mensaje">Cuéntanos tu idea</label>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Empresa / Proyecto Profesional</title>
+  <!-- Estilos CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Fuentes e Iconos de Google & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
 
-    <textarea
-        id="mensaje"
-        name="mensaje"
-        rows="4"
-        placeholder="Describe tu proyecto..."
-        required
-    ></textarea>
-</div>
+  <!-- Navegación -->
+  <header class="navbar">
+    <div class="logo">MiLogo<span>.</span></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <button class="btn-primary" onclick="scrollToContact()">Empezar</button>
+  </header>
 
-<button type="submit" class="button button-primary submit-button">
-    Preparar mensaje ↗
-</button>
-
-<p class="form-message" id="form-message" aria-live="polite"></p>
-
-</form>
-</div>
-</div>
-</section>
-
-</main>
-
-<!-- PIE DE PÁGINA -->
-<footer class="footer">
-    <div class="container footer-content">
-        <a href="#inicio" class="logo">NOVA<span>.</span></a>
-
-        <p>Diseñando el futuro, una idea a la vez.</p>
-
-        <a href="#inicio" class="back-to-top">Volver arriba ↑</a>
+  <!-- Sección Hero / Inicio -->
+  <section id="inicio" class="hero">
+    <div class="hero-content">
+      <h1>Transformamos tus Ideas en <span>Resultados Reales</span></h1>
+      <p>Ofrecemos soluciones digitales e innovadoras diseñadas para impulsar tu negocio al siguiente nivel.</p>
+      <div class="hero-buttons">
+        <a href="#servicios" class="btn-primary">Saber Más</a>
+        <a href="#contacto" class="btn-secondary">Contáctanos</a>
+      </div>
     </div>
+  </section>
 
-    <div class="container footer-bottom">
-        <p>© <span id="year"></span> NOVA STUDIO. Proyecto de demostración.</p>
-        <p>Diseñado con creatividad y código.</p>
+  <!-- Sección Servicios -->
+  <section id="servicios" class="services">
+    <h2>Nuestros Servicios</h2>
+    <div class="services-grid">
+      <div class="card">
+        <h3>🚀 Desarrollo Web</h3>
+        <p>Sitios web modernos, rápidos y optimizados para dispositivos móviles e ingenios modernos.</p>
+      </div>
+      <div class="card">
+        <h3>🎨 Diseño UI/UX</h3>
+        <p>Interfaces atractivas, intituitivas y pensadas en la mejor experiencia para tus usuarios.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Estrategia Digital</h3>
+        <p>Aumenta tu alcance y presencia en línea con estrategias personalizadas de alto impacto.</p>
+      </div>
     </div>
-</footer>
+  </section>
 
+  <!-- Sección Sobre Nosotros -->
+  <section id="nosotros" class="about">
+    <div class="about-container">
+      <h2>Sobre Nosotros</h2>
+      <p>Somos un equipo apasionado por la innovación y la calidad. Creemos que cada proyecto es único y nos esforzamos por superar las expectativas de nuestros clientes con soluciones de última generación.</p>
+    </div>
+  </section>
+
+  <!-- Sección Contacto -->
+  <section id="contacto" class="contact">
+    <h2>Contáctanos</h2>
+    <form id="contactForm">
+      <input type="text" id="nombre" placeholder="Tu Nombre Completo" required>
+      <input type="email" id="email" placeholder="Tu Correo Electrónico" required>
+      <textarea id="mensaje" rows="5" placeholder="Tu Mensaje..." required></textarea>
+      <button type="submit" class="btn-primary">Enviar Mensaje</button>
+    </form>
+    <div id="formResponse" class="response-message"></div>
+  </section>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy; 2026 Mi Proyecto Web. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script JS -->
+  <script src="script.js"></script>
 </body>
 </html>
