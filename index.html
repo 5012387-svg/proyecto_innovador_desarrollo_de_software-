@@ -99,56 +99,64 @@
     </div>
   </section>
 
-  <!-- Sección Servicios -->
+  <!-- Sección Servicios Interactivas -->
   <section id="servicios" class="services-section">
     <div class="container">
       <div class="section-header">
         <span class="sub-title">Nuestras Capacidades</span>
         <h2>Servicios Diseñados para Escalar</h2>
-        <p>Ofrecemos ingeniería de software avanzada adaptada a los estándares más exigentes de la industria.</p>
+        <p>Haz clic en cualquier tarjeta para ver los detalles técnicos completos del servicio.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card">
+        <div class="service-card interactive-card" data-service="web">
           <div class="card-icon"><i class="fa-solid fa-code"></i></div>
           <h3>Desarrollo Web & WebApps</h3>
           <p>Sitios y aplicaciones web ultra rápidas, responsivas y optimizadas con SEO técnico avanzado y arquitecturas modernas.</p>
+          <span class="card-btn">Ver Detalles <i class="fa-solid fa-chevron-right"></i></span>
         </div>
-        <div class="service-card">
+        <div class="service-card interactive-card" data-service="mobile">
           <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
           <h3>Aplicaciones Móviles</h3>
           <p>Desarrollo nativo y multiplataforma para iOS y Android con experiencias de usuario totalmente fluidas e intuitivas.</p>
+          <span class="card-btn">Ver Detalles <i class="fa-solid fa-chevron-right"></i></span>
         </div>
-        <div class="service-card">
+        <div class="service-card interactive-card" data-service="ai">
           <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
           <h3>Integración de IA & Cloud</h3>
           <p>Modelos de Inteligencia Artificial personalizados y migraciones a la nube resilientes en entornos AWS/GCP/Azure.</p>
+          <span class="card-btn">Ver Detalles <i class="fa-solid fa-chevron-right"></i></span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Sección Proyectos -->
+  <!-- Sección Proyectos Interactivas -->
   <section id="proyectos" class="projects-section">
     <div class="container">
       <div class="section-header">
         <span class="sub-title">Casos de Éxito</span>
         <h2>Proyectos Destacados</h2>
+        <p>Haz clic en una tarjeta para ver la demostración interactiva.</p>
       </div>
       <div class="projects-grid">
-        <article class="project-card">
-          <div class="project-img bg-p1"></div>
+        <article class="project-card interactive-project" data-project="paynexus">
+          <div class="project-img bg-p1">
+            <div class="project-overlay"><i class="fa-solid fa-up-right-from-square"></i> Abrir Caso de Estudio</div>
+          </div>
           <div class="project-info">
             <span class="tag">Fintech</span>
             <h3>PayNexus Platform</h3>
-            <p>Plataforma bancaria de procesamiento de pagos transfronterizos en tiempo real.</p>
+            <p>Plataforma bancaria de procesamiento de pagos transfronterizos en tiempo real con cifrado de grado militar.</p>
           </div>
         </article>
-        <article class="project-card">
-          <div class="project-img bg-p2"></div>
+        <article class="project-card interactive-project" data-project="aura">
+          <div class="project-img bg-p2">
+            <div class="project-overlay"><i class="fa-solid fa-up-right-from-square"></i> Abrir Caso de Estudio</div>
+          </div>
           <div class="project-info">
             <span class="tag">E-Commerce</span>
             <h3>Aura Global Store</h3>
-            <p>Ecosystem de comercio electrónico con recomendaciones personalizadas impulsadas por IA.</p>
+            <p>Ecosystem de comercio electrónico con recomendaciones personalizadas impulsadas por algoritmos predictivos.</p>
           </div>
         </article>
       </div>
@@ -162,6 +170,18 @@
         <span class="sub-title">Sobre Nosotros</span>
         <h2>Ingeniería Digital de Clase Mundial</h2>
         <p>Somos un equipo multidisciplinario de desarrolladores, diseñadores UI/UX y arquitectos de nube apasionados por crear soluciones eficientes y escalables.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <i class="fa-solid fa-shield-halved about-icon"></i>
+          <h3>Seguridad Garantizada</h3>
+          <p>Implementamos estándares ISO 27001 y cifrado punto a punto en todos los desarrollos.</p>
+        </div>
+        <div class="about-card">
+          <i class="fa-solid fa-rocket about-icon"></i>
+          <h3>Soporte 24/7</h3>
+          <p>Monitoreo continuo en producción para garantizar la máxima disponibilidad de tus sistemas.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -197,6 +217,14 @@
       </div>
     </div>
   </section>
+
+  <!-- Modal Detalle Interactivo -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  </div>
 
   <!-- Pie de Página -->
   <footer class="footer">

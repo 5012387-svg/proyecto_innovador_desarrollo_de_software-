@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
           block: 'start'
         });
         
-        // Cerrar menú móvil si está abierto
         const navLinks = document.getElementById('navLinks');
         if (navLinks && navLinks.classList.contains('active')) {
           navLinks.classList.remove('active');
@@ -61,7 +60,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Animación de contadores numéricos
+  // 4. Modal Interactivo para Servicios y Proyectos
+  const modal = document.getElementById('infoModal');
+  const modalBody = document.getElementById('modalBody');
+  const closeModal = document.getElementById('closeModal');
+
+  const serviceData = {
+    web: {
+      title: '🚀 Desarrollo Web & WebApps',
+      content: '<p style="margin-top:1rem; color:#9ca3af;">Construimos aplicaciones web progresivas (PWA) e interfaces dinámicas con Next.js, React y Vue. Optimización de velocidad <strong style="color:#fff;">Lighthouse 100/100</strong>.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Renderizado en servidor (SSR/SSG)</li><li>Arquitectura JAMstack escalable</li><li>Seguridad con estándares OWASP</li></ul>'
+    },
+    mobile: {
+      title: '📱 Aplicaciones Móviles',
+      content: '<p style="margin-top:1rem; color:#9ca3af;">Desarrollo multiplataforma nativo utilizando Flutter y React Native con soporte offline y animaciones a 60fps.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Publicación garantizada en App Store & Google Play</li><li>Notificaciones push en tiempo real</li><li>Biometría y autenticación segura</li></ul>'
+    },
+    ai: {
+      title: '🧠 Integración de IA & Cloud',
+      content: '<p style="margin-top:1rem; color:#9ca3af;">Integración de LLMs, automatización de flujos de trabajo e infraestructura sin servidor en AWS, Google Cloud y Azure.</p><ul style="margin-top:1rem; margin-left:1.5rem; color:#9ca3af;"><li>Pipelines de datos e Inteligencia Artificial</li><li>Contenedores Docker y Kubernetes</li><li>Cero tiempo de inactividad (Zero Downtime)</li></ul>'
+    }
+  };
+
+  const projectData = {
+    paynexus: {
+      title: '💳 PayNexus Platform',
+      content: '<p style="margin-top:1rem; color:#9ca3af;">Plataforma de procesamiento de pagos transfronterizos capaz de gestionar más de 50,000 transacciones por segundo con cifrado AES-256.</p><a href="#contacto" onclick="document.getElementById(\'infoModal\').classList.remove(\'active\')" class="btn btn-primary" style="margin-top:1.5rem;">Solicitar una Demo</a>'
+    },
+    aura: {
+      title: '🛍️ Aura Global Store',
+      content: '<p style="margin-top:1rem; color:#9ca3af;">E-commerce con arquitectura Headless impulsado por Shopify Plus y algoritmos de personalización en tiempo real que aumentaron la conversión un +42%.</p><a href="#contacto" onclick="document.getElementById(\'infoModal\').classList.remove(\'active\')" class="btn btn-primary" style="margin-top:1.5rem;">Ver Caso Completo</a>'
+    }
+  };
+
+  // Clics en Servicios
+  document.querySelectorAll('.interactive-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const type = card.getAttribute('data-service');
+      const data = serviceData[type];
+      if (data) {
+        modalBody.innerHTML = `<h2 style="color:#fff; font-size:1.8rem;">${data.title}</h2>${data.content}`;
+        modal.classList.add('active');
+      }
+    });
+  });
+
+  // Clics en Proyectos
+  document.querySelectorAll('.interactive-project').forEach(card => {
+    card.addEventListener('click', () => {
+      const type = card.getAttribute('data-project');
+      const data = projectData[type];
+      if (data) {
+        modalBody.innerHTML = `<h2 style="color:#fff; font-size:1.8rem;">${data.title}</h2>${data.content}`;
+        modal.classList.add('active');
+      }
+    });
+  });
+
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+  }
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+
+  // 5. Animación de contadores
   const statNumbers = document.querySelectorAll('.stat-num');
   let animated = false;
 
@@ -98,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', checkStatsVisibility);
   checkStatsVisibility();
 
-  // 5. Formulario de contacto funcional
+  // 6. Formulario de contacto
   const contactForm = document.getElementById('contactForm');
   const formFeedback = document.getElementById('formFeedback');
 
