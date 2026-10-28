@@ -1,91 +1,43 @@
-<!DOCTYPE html>
-<html lang="es" class="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Presupuesto Express — Calculadora Profesional de Cotizaciones</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+<div class="form-group">
+    <label for="mensaje">Cuéntanos tu idea</label>
 
-  <!-- Header / Barra Superior -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="p-2 bg-brand-500/10 text-brand-500 rounded-lg border border-brand-500/20">
-          <i data-lucide="calculator" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-lg leading-none text-slate-100">Presupuesto Express</h1>
-          <p class="text-xs text-slate-400 mt-0.5">Calculadora de Cotizaciones Profesional</p>
-        </div>
-      </div>
-      
-      <button id="themeToggleBtn" type="button" class="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-lg transition" title="Cambiar Tema">
-        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
-        <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
-      </button>
+    <textarea
+        id="mensaje"
+        name="mensaje"
+        rows="4"
+        placeholder="Describe tu proyecto..."
+        required
+    ></textarea>
+</div>
+
+<button type="submit" class="button button-primary submit-button">
+    Preparar mensaje ↗
+</button>
+
+<p class="form-message" id="form-message" aria-live="polite"></p>
+
+</form>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer">
+    <div class="container footer-content">
+        <a href="#inicio" class="logo">NOVA<span>.</span></a>
+
+        <p>Diseñando el futuro, una idea a la vez.</p>
+
+        <a href="#inicio" class="back-to-top">Volver arriba ↑</a>
     </div>
-  </header>
 
-  <!-- Banner de Alertas -->
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-    <div id="alertBanner" class="hidden p-4 rounded-xl border flex items-center justify-between transition-all duration-200">
-      <div class="flex items-center gap-3">
-        <i id="alertIcon" class="w-5 h-5 flex-shrink-0"></i>
-        <span id="alertMessage" class="text-sm font-medium"></span>
-      </div>
-      <button id="closeAlertBtn" class="p-1 hover:opacity-75 rounded-lg transition">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
+    <div class="container footer-bottom">
+        <p>© <span id="year"></span> NOVA STUDIO. Proyecto de demostración.</p>
+        <p>Diseñado con creatividad y código.</p>
     </div>
-  </div>
+</footer>
 
-  <!-- Contenido Principal -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-    
-    <!-- Formulario (4 columnas en escritorio) -->
-    <section class="lg:col-span-4 bg-slate-800/50 border border-slate-700/60 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
-      <h2 class="text-lg font-semibold text-slate-100 flex items-center gap-2 mb-6">
-        <i data-lucide="plus-circle" class="w-5 h-5 text-brand-500"></i>
-        Agregar Ítem
-      </h2>
-
-      <form id="itemForm" class="space-y-5">
-        <div>
-          <label for="itemConcept" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
-            Concepto / Servicio <span class="text-brand-500">*</span>
-          </label>
-          <input 
-            type="text" 
-            id="itemConcept" 
-            placeholder="Ej: Desarrollo de Landing Page" 
-            class="w-full bg-slate-900/80 border border-slate-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition"
-            required
-          >
-        </div>
-
-        <div>
-          <label for="itemPrice" class="block text-xs font-semibold
+</body>
+</html>
