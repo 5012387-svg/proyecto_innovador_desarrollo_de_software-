@@ -3,86 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Empresa / Proyecto Profesional</title>
-  <!-- Estilos CSS -->
+  <title>Nexus Tech | Soluciones Digitales de Alto Impacto</title>
+  
+  <!-- Fuentes e Iconos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Hoja de Estilos CSS -->
   <link rel="stylesheet" href="css/styles.css">
-  <!-- Fuentes e Iconos de Google & FontAwesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- Navegación -->
-  <header class="navbar">
-    <div class="logo">MiLogo<span>.</span></div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-    <button class="btn-primary" onclick="scrollToContact()">Empezar</button>
+  <!-- Navegación Principial -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="logo">
+        <i class="fa-solid fa-cube logo-icon"></i>
+        <span>NEXUS</span><span class="logo-dot">.</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio" class="nav-link active">Inicio</a></li>
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#proyectos" class="nav-link">Proyectos</a></li>
+          <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="#contacto" class="btn btn-glow">Iniciar Proyecto</a>
+        <button class="mobile-toggle" id="menuToggle" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <!-- Sección Hero / Inicio -->
-  <section id="inicio" class="hero">
-    <div class="hero-content">
-      <h1>Transformamos tus Ideas en <span>Resultados Reales</span></h1>
-      <p>Ofrecemos soluciones digitales e innovadoras diseñadas para impulsar tu negocio al siguiente nivel.</p>
-      <div class="hero-buttons">
-        <a href="#servicios" class="btn-primary">Saber Más</a>
-        <a href="#contacto" class="btn-secondary">Contáctanos</a>
+  <!-- Sección Hero -->
+  <section id="inicio" class="hero-section">
+    <div class="hero-bg-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="badge"><i class="fa-solid fa-bolt"></i> Innovación Digital 2026</div>
+        <h1>Construimos el <span>Futuro Software</span> de tu Empresa</h1>
+        <p>Transformamos visiones complejas en experiencias digitales fluidas, escalables y orientadas a resultados. Desarrollo a la medida de la máxima exigencia.</p>
+        <div class="hero-buttons">
+          <a href="#contacto" class="btn btn-primary btn-lg">Empezar Ahora <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#proyectos" class="btn btn-outline btn-lg"><i class="fa-solid fa-circle-play"></i> Ver Trabajo</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num" data-target="99">0</span><span>%</span>
+            <span class="stat-label">Satisfacción Cliente</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="150">0</span><span>+</span>
+            <span class="stat-label">Proyectos Exitosos</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num" data-target="10">0</span><span>+</span>
+            <span class="stat-label">Años de Experiencia</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="code-card">
+          <div class="code-header">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="code-title">app.ts — Nexus Engine</span>
+          </div>
+          <div class="code-body">
+            <pre><code><span class="k">const</span> <span class="v">project</span> = <span class="k">new</span> <span class="f">DigitalSolution</span>({
+  <span class="p">client</span>: <span class="s">"Tu Empresa"</span>,
+  <span class="p">stack</span>: [<span class="s">"Cloud"</span>, <span class="s">"AI"</span>, <span class="s">"FullStack"</span>],
+  <span class="p">performance</span>: <span class="s">"100%"</span>,
+  <span class="p">security</span>: <span class="s">"Enterprise"</span>
+});
+
+<span class="c">// Inicializando arquitectura de alto rendimiento</span>
+<span class="k">await</span> <span class="v">project</span>.<span class="f">deployToGlobalScale</span>();</code></pre>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Sección Servicios -->
-  <section id="servicios" class="services">
-    <h2>Nuestros Servicios</h2>
-    <div class="services-grid">
-      <div class="card">
-        <h3>🚀 Desarrollo Web</h3>
-        <p>Sitios web modernos, rápidos y optimizados para dispositivos móviles e ingenios modernos.</p>
+  <section id="servicios" class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-title">Nuestras Capacidades</span>
+        <h2>Servicios Diseñados para Escalar</h2>
+        <p>Ofrecemos ingeniería de software avanzada adaptada a los estándares más exigentes de la industria.</p>
       </div>
-      <div class="card">
-        <h3>🎨 Diseño UI/UX</h3>
-        <p>Interfaces atractivas, intituitivas y pensadas en la mejor experiencia para tus usuarios.</p>
-      </div>
-      <div class="card">
-        <h3>📈 Estrategia Digital</h3>
-        <p>Aumenta tu alcance y presencia en línea con estrategias personalizadas de alto impacto.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+          <h3>Desarrollo Web & WebApps</h3>
+          <p>Sitios y aplicaciones web ultra rápidas, responsivas y optimizadas con SEO técnico avanzado y arquitecturas modernas.</p>
+        </div>
+        <div class="service-card">
+          <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <h3>Aplicaciones Móviles</h3>
+          <p>Desarrollo nativo y multiplataforma para iOS y Android con experiencias de usuario totalmente fluidas e intuitivas.</p>
+        </div>
+        <div class="service-card">
+          <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>Integración de IA & Cloud</h3>
+          <p>Modelos de Inteligencia Artificial personalizados y migraciones a la nube resilientes en entornos AWS/GCP/Azure.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Sección Sobre Nosotros -->
-  <section id="nosotros" class="about">
-    <div class="about-container">
-      <h2>Sobre Nosotros</h2>
-      <p>Somos un equipo apasionado por la innovación y la calidad. Creemos que cada proyecto es único y nos esforzamos por superar las expectativas de nuestros clientes con soluciones de última generación.</p>
+  <!-- Sección Proyectos -->
+  <section id="proyectos" class="projects-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-title">Casos de Éxito</span>
+        <h2>Proyectos Destacados</h2>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-img bg-p1"></div>
+          <div class="project-info">
+            <span class="tag">Fintech</span>
+            <h3>PayNexus Platform</h3>
+            <p>Plataforma bancaria de procesamiento de pagos transfronterizos en tiempo real.</p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-img bg-p2"></div>
+          <div class="project-info">
+            <span class="tag">E-Commerce</span>
+            <h3>Aura Global Store</h3>
+            <p>Ecosystem de comercio electrónico con recomendaciones personalizadas impulsadas por IA.</p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- Sección Contacto -->
-  <section id="contacto" class="contact">
-    <h2>Contáctanos</h2>
-    <form id="contactForm">
-      <input type="text" id="nombre" placeholder="Tu Nombre Completo" required>
-      <input type="email" id="email" placeholder="Tu Correo Electrónico" required>
-      <textarea id="mensaje" rows="5" placeholder="Tu Mensaje..." required></textarea>
-      <button type="submit" class="btn-primary">Enviar Mensaje</button>
-    </form>
-    <div id="formResponse" class="response-message"></div>
-  </section>
-
-  <!-- Pie de página -->
-  <footer>
-    <p>&copy; 2026 Mi Proyecto Web. Todos los derechos reservados.</p>
-  </footer>
-
-  <!-- Script JS -->
-  <script src="script.js"></script>
-</body>
-</html>
+  <section id="contacto" class="contact-section">
+    <div class="container contact-container">
+      <div class="contact-text">
+        <h2>¿Listo para elevar tu presencia digital?</h2>
+        <p>Cuéntanos sobre tu proyecto. Un especialista en arquitectura de software te responderá en menos de 24 horas.</p>
+        <div class="contact-details">
+          <div class="c-item"><i class="fa-solid fa-envelope"></i><span>contacto@nexus-tech.com</span></div>
+          <div class="c-item"><i class="fa-solid fa-location-dot"></i><span>Distrito de Innovación, Edificio Nexus</span></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Nombre Completo</label>
+            <input type="text" id="name" required
